@@ -17,16 +17,18 @@ import httplib2
 import json
 from flask import make_response
 import requests
+import os
 
 
 app = Flask(__name__)
 
-CLIENT_ID = json.loads(
-    open('client_Secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "udacity-animal-catalog"
+# CLIENT_ID = json.loads(
+#     open('client_Secrets.json', 'r').read())['web']['client_id']
+# APPLICATION_NAME = "udacity-animal-catalog"
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+json_url = os.path.join(PROJECT_ROOT, 'client_secrets.json')
+CLIENT_ID = json.load(open(json_url))['web']['client_id']
 
-print("This is the client id: %s" % CLIENT_ID)
-print("This is the application name: %s" % APPLICATION_NAME)
 
 # Establish connection to database and create a session
 engine = create_engine('sqlite:///animalcatalog.db',
@@ -42,7 +44,7 @@ session = DBSession()
 @app.route('/login/')
 def loginPage():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+                    for x in range(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state, CLIENT_ID=CLIENT_ID)
 
