@@ -1,0 +1,67 @@
+<html lang="en">
+	<head>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: '438834524470-d72tu523pti527qgupjpkrvnbbgqe5h8.apps.googleusercontent.com',
+                    // Scopes to request in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+            });
+        }
+    </script>
+  </head>
+<body>
+{% include "sidebar.html" %}
+<div class="main">
+  <h1>Signing In</h1>
+  <h2> Google Login </h2>
+    <button id="signinButton" style='padding:0; border:none; background: none;'><img src="{{url_for('static', filename='signinWithGoogle.png')}}" alt='Google Signin Button'>
+</button>
+    <script>
+        $('#signinButton').click(function() {
+            // signInCallback defined in step 6.
+            auth2.grantOfflineAccess().then(signInCallback);
+        });
+    </script>
+    <div id='result'></div>
+    <script>
+    function signInCallback(authResult) {
+        if (authResult['code']) {
+            // Hide the sign-in button now that the user is authorized, for example:
+            $('#signinButton').attr('style', 'display: none');
+            // Send the code to the server
+            $.ajax({
+                type: 'POST',
+                url: '/gconnect?state={{STATE}}',
+                processData: false,
+                // Always include an `X-Requested-With` header in every AJAX request,
+                // to protect against CSRF attacks.
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                contentType: 'application/octet-stream; charset=utf-8',
+                data: authResult['code'],
+                success: function(result) {
+                    // Handle or verify the server response.
+                    if (result) {
+                        $('#result').html('Login Successful!</br>' + result + '</br>Redirecting...')
+                        setTimeout(function() {
+                            window.location.href = '/classes/';
+                        }, 4000);
+                    } else if (authResult['error']) {
+                        console.log('There was an error: ' + authResult['error']);
+                    } else {
+                        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                    }
+                }
+            });
+        }
+    }
+    </script>
+</body>
+</html>

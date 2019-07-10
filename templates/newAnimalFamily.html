@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="main">
+
+<h1>Create a New Family inside {{animal_class.name}}</h1>
+<button onclick ="window.location.href ='/classes/{{animal_class_id}}/family/';"> Cancel</button>
+
+<div class ="family-item">
+<form action="{{ url_for('newAnimalFamily', animal_class_id = animal_class_id)}}"
+method = 'post'>
+
+<dl>
+	<dt>Family Name:</dt>
+		<dd><input type ='text' size='30' name='name' required></dd>
+            <dt>Family Description:</dt>
+                        <dd><textarea name = 'description' rows='5' cols='40' required></textarea></dd>
+						<dt>Distinctive Features:</dt>
+												<dd><textarea name = 'distinctive_feature' rows='2' cols='40' required></textarea></dd>
+						<dt>Number of Family Members on Board:</dt>
+						            <dd><textarea name = 'quantity_on_board' rows='1' cols='2' required></textarea></dd>
+						<dt>Both Male & Female?</dt>
+						<div class="radio">
+					  <label>
+					    <input type="radio" name="male_female" id="Yes" value="Both sexes">Both sexes
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="male_female" id="No" value="Single sex">Single sex
+					  </label>
+					</div>
+					<br>
+
+<input type='submit' value='Create'>
+
+</dl>
+
+</form>
+</div>
+</div>
+{% endblock %}

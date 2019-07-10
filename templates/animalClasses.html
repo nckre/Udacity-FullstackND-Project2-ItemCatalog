@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="main">
+{% include "flashBar.html" %}
+<h1>Animal Classes currently onboard</h1>
+<button onclick ="window.location.href ='/classes/new/';"> Add Animal Class</button>
+
+<div class="row">
+<div class="double-column">
+<h2> Animal Classes </h2>
+<div class = "flex-container-animal-class">
+{% for i in animal_classes %}
+<a href=/classes/{{i.id}}/family/>
+<div class="flex-item-animal-class">
+  <img src="{{i.link}}" alt="If you can't see a picture, please add a valid link to an image of {{i.name}}" style="width:100px;height:100px;"> <br>
+  <b> {{i.name}} </b> <br>
+  </a>
+  {% if i.user_id == user_id %}
+    <button onclick ="window.location.href ='/classes/{{i.id}}/edit';"> Edit </button>
+    <button onclick ="window.location.href ='/classes/{{i.id}}/delete';"> Delete </button>
+  {% endif %}
+</div>
+{% endfor %}
+</div>
+</div>
+<div class="column">
+<h2> Latest Family Additions </h2>
+  {% for f in animal_families %}
+  <div class="family-item">
+  {{f.name}} added by User #{{f.user_id}}
+  </div>
+  {% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}

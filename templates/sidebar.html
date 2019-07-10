@@ -1,0 +1,23 @@
+<div class="sidenav">
+	<a href="/"> <h3> Noah's Ark </h3> </a>
+	{% if user_name is defined %}
+	Logged in as: <br>
+	{{user_name}} <br>
+	<a href="/logout/
+	">Logout</a>
+	{% else %}
+		<a href="/login">Login</a>
+	{% endif %}
+	<hr>
+	<a href="/classes/
+	">Classes</a>
+	<a href="/classes/new/
+	">+New Class</a>
+	<hr>
+	{% if animal_class is defined %}
+		<a href="
+			">Animal Families</a>
+			<a href="new/
+				">+New Family</a>
+	{% endif %}
+</div>

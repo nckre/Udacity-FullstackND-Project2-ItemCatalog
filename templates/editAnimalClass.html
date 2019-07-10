@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="main">
+
+<h1> Edit Class: {{animal_class.name}}</h1>
+<button onclick ="window.location.href ='/classes/';"> Cancel</button>
+
+<div class="family-item">
+<form action="{{ url_for('editAnimalClass', animal_class_id = animal_class_id)}}" method = 'post'>
+
+  Change Name:
+  <input type = 'text' size='30' name='name' placeholder = '{{animal_class.name}}'> <br>
+  Change Picture:
+  <input type = 'text' size='30' name='link' placeholder = '{{animal_class.link}}'> <br>
+<input type='submit' value='Create'>
+
+</form>
+
+</div>
+</div>
+{% endblock %}

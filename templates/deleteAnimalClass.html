@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="main">
+<h1> Delete {{animal_class.name}}</h1>
+<button onclick ="window.location.href ='/classes/';"> Cancel</button>
+<div class ="family-item">
+<form action="{{ url_for('deleteAnimalClass', animal_class_id = animal_class_id)}}" method = 'post'>
+<img src="{{animal_class.link}}" alt="If you can't see a picture, please add a valid link to an image of {{animal_class.name}}" style="width:100px;height:100px;"> <br>
+<b>Name:</b> {{animal_class.name}} <br>
+<input type='submit' value='Delete'>
+
+</form>
+</div>
+{% endblock %}

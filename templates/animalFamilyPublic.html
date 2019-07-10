@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="main">
+<h1> PUBLIC PAGE {{animal_class.name}} currently onboard </h1>
+<b> Created by: </b> {{creator.name}} <br>
+<div class = "family-container">
+{% for i in class_family %}
+<div class = "family-item">
+<h3>{{i.name}}</h3>
+<b> Created by: </b> {{i.user_id}} <br>
+<b>Description:</b> {{i.description}} <br>
+<b>Distinctive features:</b> {{i.distinctive_feature}} <br>
+<b>Quanity:</b> {{i.quantity_on_board}} </br>
+<b>Reproduction ensured?</b> {{i.male_female}} </br>
+</div>
+{% endfor %}
+
+</div>
+</div>
+{% endblock %}
